@@ -2,6 +2,10 @@ import json
 
 import requests
 
+def success(response):
+    
+    result = response.json()
+    return json.dumps(result, indent=2, ensure_ascii=False)
 
 
 class Aria2c:
@@ -124,31 +128,20 @@ class Aria2c:
 
     def addUri(self, uri, options=None):
 
-        def success(response):
-
-            return response.text
-
         return self._post(Aria2c.ADD_URI, [[uri,], options], success)
 
 
 
     def getVer(self):
 
-        def success(response):
-
-            return response.json()['result']['version']
-
         return self._post(Aria2c.GET_VER, [], success)
 
     def tellActive(self):
-        def success(response):
-            return response.text
 
         return self._post('aria2.tellActive', [], success)
 
 
 
     def getFiles(self, gid):
-        def success(response):
-            return response.text 
+
         return self._post('aria2.getFiles', [gid,], success)
