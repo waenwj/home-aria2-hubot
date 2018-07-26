@@ -12,6 +12,14 @@ module.exports = (robot) ->
     })
     res.send data
 
+  robot.respond /aria2c (\w+)([ ]*)(.*)/i, (res) ->
+    command = res.match[1]
+    arg = res.match[3]
+
+    child_process.exec "python action/aria2c.py "#{command}" \"#{arg}\"",  (error, stdout, stderr) ->
+      res.send stdout
+      res.send stderr
+
   robot.respond /info/i, (res) ->
     child_process.exec "python action/info.py",  (error, stdout, stderr) ->
       res.send stdout
@@ -20,7 +28,7 @@ module.exports = (robot) ->
   robot.respond /add (.*)/i, (res) ->
     uri = res.match[1]
     if uri 
-      child_process.exec "python action/add.py #{uri}",  (error, stdout, stderr) ->
+      child_process.exec "python action/add.py \"#{uri}\"",  (error, stdout, stderr) ->
         res.send stdout
         res.send stderr
     else 
