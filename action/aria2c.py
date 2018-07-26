@@ -3,9 +3,9 @@ import json
 import requests
 
 def success(response):
-    
+
     result = response.json()
-    return json.dumps(result, indent=2, ensure_ascii=False)
+    return json.dumps(result, indent=2, ensure_ascii=False).encode('utf8')
 
 
 class Aria2c:
