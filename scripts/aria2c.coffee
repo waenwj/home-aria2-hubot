@@ -15,8 +15,7 @@ module.exports = (robot) ->
   robot.respond /aria2c (\w+)([ ]*)(.*)/i, (res) ->
     command = res.match[1]
     arg = res.match[3]
-
-    child_process.exec "python action/aria2c.py "#{command}" \"#{arg}\"",  (error, stdout, stderr) ->
+    child_process.exec "python action/aria2c.py \"#{command}\" \"#{arg}\"",  (error, stdout, stderr) ->
       res.send stdout
       res.send stderr
 
